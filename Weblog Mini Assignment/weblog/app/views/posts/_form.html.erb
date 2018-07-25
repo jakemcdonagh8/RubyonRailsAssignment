@@ -1,0 +1,38 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= hidden_field_tag 'page', @current_page %>
+
+  <div class="field">
+    <%= form.label :title %><br>
+    <%= form.text_field :title, id: :post_title %>
+  </div>
+  
+  <div class="field">
+    <%= label_tag 'email', 'Email' %><br>
+	<%= if post.user
+	 text_field_tag 'email', post.user.email
+    else
+	 text_field_tag 'email'
+	end %>
+  </div>
+  
+  <div class="field">
+	<%= form.label :body %><br>
+	<%= form.text_area :body, id: :post_body %>
+  </div>	
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
